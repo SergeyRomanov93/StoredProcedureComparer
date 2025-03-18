@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoredProcedureComparer", "StoredProcedureComparer\StoredProcedureComparer.csproj", "{E9E2DF73-B56D-4108-986E-167F06C3DDAF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProceduresComparer", "ProceduresComparer\ProceduresComparer.csproj", "{E50C8818-0413-4DB7-A210-F738A77780ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E9E2DF73-B56D-4108-986E-167F06C3DDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9E2DF73-B56D-4108-986E-167F06C3DDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9E2DF73-B56D-4108-986E-167F06C3DDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9E2DF73-B56D-4108-986E-167F06C3DDAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E50C8818-0413-4DB7-A210-F738A77780ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E50C8818-0413-4DB7-A210-F738A77780ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E50C8818-0413-4DB7-A210-F738A77780ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E50C8818-0413-4DB7-A210-F738A77780ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28012860-BC26-4165-81D0-132F4A7DB0FC}
+	EndGlobalSection
+EndGlobal
