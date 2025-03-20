@@ -10,7 +10,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.3" />
-    <PackageReference Include="SqlServer" Version="22.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoredProcedureComparer\StoredProcedureComparer.csproj" />
   </ItemGroup>
 
   <ItemGroup>
