@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Db\" />
-    <Folder Include="Helpers\" />
+    <Compile Remove="Db\**" />
+    <Compile Remove="Helpers\**" />
+    <EmbeddedResource Remove="Db\**" />
+    <EmbeddedResource Remove="Helpers\**" />
+    <None Remove="Db\**" />
+    <None Remove="Helpers\**" />
   </ItemGroup>
 
   <ItemGroup>
