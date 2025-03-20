@@ -16,10 +16,15 @@ namespace StoredProcedureComparer.Helpers
                 string query = @"
                 SELECT 
                     o.name AS ProcedureName,
-                    m.definition AS Definition
-                FROM sys.sql_modules m
-                INNER JOIN sys.objects o ON m.object_id = o.object_id
-                WHERE o.type IN ('P', 'FN')"; // P - процедуры, FN - функции
+                    m.definition AS ProcedureDefinition
+                FROM 
+                    sys.sql_modules m
+                INNER JOIN 
+                    sys.objects o ON m.object_id = o.object_id
+                WHERE 
+                    o.type = 'P' -- 'P' означает хранимую процедуру
+                ORDER BY 
+                    o.name;";
 
                 using (SqlCommand? command = new SqlCommand(query, connection))
                 using (SqlDataReader? reader = command?.ExecuteReader())
@@ -27,7 +32,7 @@ namespace StoredProcedureComparer.Helpers
                     while (reader.Read())
                     {
                         string name = reader["ProcedureName"].ToString();
-                        string? definition = reader?["Definition"].ToString();
+                        string? definition = reader?["ProcedureDefinition"].ToString();
                         definitions[name] = definition?.Trim().Replace("\r\n", "\n").Replace("\t", "");
                     }
                 }

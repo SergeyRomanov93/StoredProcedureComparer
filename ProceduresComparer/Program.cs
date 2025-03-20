@@ -11,8 +11,10 @@ class Program
             .AddJsonFile("appsettings.json")
             .Build();
 
+        Console.Write("Введите путь к папку с файлами SQL: ");
+        string? folderPath = Console.ReadLine();
+
         string? connectionString = configuration.GetConnectionString("SqlServer");
-        string? folderPath = "C:\\Users\\svsil\\Documents\\SQL Server Management Studio\\StoredProcedures"; //Путь к папке с хранимыми процедурами
 
         if (!Directory.Exists(folderPath))
         {
