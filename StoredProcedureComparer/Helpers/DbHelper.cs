@@ -4,7 +4,7 @@ namespace StoredProcedureComparer.Helpers
 {
     public static class DbHelper
     {
-        public static Dictionary<string, string> GetServerStoredProcedures(string? connectionString)
+        public static Dictionary<string, string> GetServerStoredProceduresAndFunctions(string? connectionString)
         {
             Dictionary<string, string?> definitions = new Dictionary<string, string?>();
 
@@ -23,6 +23,7 @@ namespace StoredProcedureComparer.Helpers
                     sys.objects o ON m.object_id = o.object_id
                 WHERE 
                     o.type = 'P' -- 'P' означает хранимую процедуру
+                OR o.type = 'FN' -- 'FN' означает функцию
                 ORDER BY 
                     o.name;";
 
@@ -38,7 +39,11 @@ namespace StoredProcedureComparer.Helpers
                 }
             }
 
-            return definitions;
+            return definitions.Where(d => d.Key.Contains("CP_") 
+                                                || d.Key.Contains("fn_")
+                                                || d.Key.Contains("[dbo].[cp_")
+                                                || d.Key.Contains("[dbo].[fn_")
+                                                || d.Key.Contains("cp_")).ToDictionary();
         }
     }
 }

@@ -16,55 +16,50 @@ class Program
 
         string? connectionString = configuration.GetConnectionString("SqlServer");
 
-        if (!Directory.Exists(folderPath))
-        {
-            Console.WriteLine($"Папка {folderPath} не существует.");
-            return;
-        }
-
-        // Получение списка файлов
-        var files = Directory.GetFiles(folderPath, "*.sql");
+        // Получение текущих определений хранимок/функций из локального репозитория
+        var localDefinitions = LocalRepositoryHelper.GetLocalStoredProceduresAndFunctions(folderPath, out var doubles);
 
         // Получение текущих определений хранимок/функций с сервера
-        var serverDefinitions = DbHelper.GetServerStoredProcedures(connectionString);
+        var serverDefinitions = DbHelper.GetServerStoredProceduresAndFunctions(connectionString);
 
+        ;
         // Сравнение и формирование отчёта
-        foreach (var file in files)
-        {
-            string fileName = Path.GetFileName(file);
-            string fileContent = File.ReadAllText(file).Trim().Replace("\r\n", "\n").Replace("\t", "");
+    //    foreach (var file in localDefinitions)
+    //    {
+    //        string fileName = Path.GetFileName(file.Key);
+    //        string fileContent = File.ReadAllText(file.Value).Trim().Replace("\r\n", "\n").Replace("\t", "");
 
-            // Извлечение имени хранимки/функции из файла (предполагается, что имя совпадает с именем файла без расширения)
-            string procedureName = Path.GetFileNameWithoutExtension(fileName);
+    //        // Извлечение имени хранимки/функции из файла (предполагается, что имя совпадает с именем файла без расширения)
+    //        string procedureName = Path.GetFileNameWithoutExtension(fileName);
 
-            Console.WriteLine($"Проверка файла: {fileName}");
-            Console.WriteLine($"Имя процедуры/функции: {procedureName}");
+    //        Console.WriteLine($"Проверка файла: {fileName}");
+    //        Console.WriteLine($"Имя процедуры/функции: {procedureName}");
 
-            if (!serverDefinitions.ContainsKey(procedureName))
-            {
-                Console.WriteLine($"  Процедура/функция {procedureName} отсутствует на сервере.");
-                continue;
-            }
+    //        if (!serverDefinitions.ContainsKey(procedureName))
+    //        {
+    //            Console.WriteLine($"  Процедура/функция {procedureName} отсутствует на сервере.");
+    //            continue;
+    //        }
 
-            string serverContent = serverDefinitions[procedureName].Trim().Replace("\r\n", "\n").Replace("\t", "");
+    //        string serverContent = serverDefinitions[procedureName].Trim().Replace("\r\n", "\n").Replace("\t", "");
 
-            if (fileContent == serverContent)
-            {
-                Console.WriteLine("  Отличий в коде нет.");
-            }
-            else
-            {
-                Console.WriteLine("  Есть отличия в коде:");
-                var differences = CompareHelper.CompareCode(fileContent, serverContent);
-                Console.WriteLine($"    Количество отличающихся строк: {differences.Count}");
+    //        if (fileContent == serverContent)
+    //        {
+    //            Console.WriteLine("  Отличий в коде нет.");
+    //        }
+    //        else
+    //        {
+    //            Console.WriteLine("  Есть отличия в коде:");
+    //            var differences = CompareHelper.CompareCode(fileContent, serverContent);
+    //            Console.WriteLine($"    Количество отличающихся строк: {differences.Count}");
 
-                foreach (var diff in differences)
-                {
-                    Console.WriteLine($"    Строка: {diff}");
-                }
-            }
+    //            foreach (var diff in differences)
+    //            {
+    //                Console.WriteLine($"    Строка: {diff}");
+    //            }
+    //        }
 
-            Console.WriteLine();
-        }
+    //        Console.WriteLine();
+    //    }
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace StoredProcedureComparer.Helpers
 {
@@ -24,6 +19,7 @@ namespace StoredProcedureComparer.Helpers
                 {
                     // Проверка на наличие даты в формате yy-MM-dd, yy.MM.dd, yyyy.MM.dd, yyyy-MM-dd
                     var datePattern = @"\b(\d{2}([.-])\d{2}\2\d{2,4})\b";
+
                     if (Regex.IsMatch(fileLine, datePattern) || Regex.IsMatch(serverLine, datePattern))
                     {
                         differences.Add($"Файл: {fileLine}, Сервер: {serverLine}");
