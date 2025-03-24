@@ -4,9 +4,10 @@ namespace StoredProcedureComparer.Helpers
 {
     public static class DbHelper
     {
-        public static Dictionary<string, string> GetServerStoredProceduresAndFunctions(string? connectionString)
+        public static List<string> GetServerStoredProceduresAndFunctions(string? connectionString)
         {
             Dictionary<string, string?> definitions = new Dictionary<string, string?>();
+            var contents = new List<string>();
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -35,15 +36,13 @@ namespace StoredProcedureComparer.Helpers
                         string name = reader["ProcedureName"].ToString();
                         string? definition = reader?["ProcedureDefinition"].ToString();
                         definitions[name] = definition?.Trim().Replace("\r\n", "\n").Replace("\t", "");
+
+                        contents = definitions.Values.Where(d => d.Contains("CREATE") || d.Contains("ALTER")).ToList();
                     }
                 }
             }
 
-            return definitions.Where(d => d.Key.Contains("CP_") 
-                                                || d.Key.Contains("fn_")
-                                                || d.Key.Contains("[dbo].[cp_")
-                                                || d.Key.Contains("[dbo].[fn_")
-                                                || d.Key.Contains("cp_")).ToDictionary();
+            return contents;
         }
     }
 }

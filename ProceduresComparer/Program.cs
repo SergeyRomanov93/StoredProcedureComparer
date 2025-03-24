@@ -17,11 +17,11 @@ class Program
         string? connectionString = configuration.GetConnectionString("SqlServer");
 
         // Получение текущих определений хранимок/функций из локального репозитория
-        var localDefinitions = LocalRepositoryHelper.GetLocalStoredProceduresAndFunctions(folderPath, out var doubles);
+        var localDefinitions = LocalRepositoryHelper.GetLocalStoredProceduresAndFunctions(folderPath);
 
         // Получение текущих определений хранимок/функций с сервера
         var serverDefinitions = DbHelper.GetServerStoredProceduresAndFunctions(connectionString);
-
+        var e = CompareHelper.CompareContentsResult(localDefinitions, serverDefinitions);
         ;
         // Сравнение и формирование отчёта
     //    foreach (var file in localDefinitions)
